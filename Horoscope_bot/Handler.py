@@ -16,7 +16,7 @@ def start(update: Update, context: CallbackContext):
 start_handler = CommandHandler('start', start)
 dispatcher.add_handler(start_handler)
 
-def echo(update: Update, context: CallbackContext):
+def signRequest(update: Update, context: CallbackContext):
     params = (
         ('sign', update.message.text),
         ('day', 'today')
@@ -27,5 +27,5 @@ def echo(update: Update, context: CallbackContext):
 
     context.bot.send_message(chat_id=update.effective_chat.id, text = jsonResponse["description"])
 
-echo_handler = MessageHandler(Filters.text & (~Filters.command), echo)
+echo_handler = MessageHandler(Filters.text & (~Filters.command), signRequest)
 dispatcher.add_handler(echo_handler)
