@@ -22,8 +22,8 @@ def start(update: Update, context: CallbackContext):
 start_handler = CommandHandler('start', start)
 dispatcher.add_handler(start_handler)
 
-def echo(update: Update, context: CallbackContext):
+def kb_message(update: Update, context: CallbackContext):
     context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
 
-kb_handler = MessageHandler(Filters.text & (~Filters.command), echo)
+kb_handler = MessageHandler(Filters.text & (~Filters.command), kb_message)
 dispatcher.add_handler(kb_handler)
