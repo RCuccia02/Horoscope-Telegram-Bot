@@ -28,6 +28,8 @@ class TestHandlers:
 
         send_message.assert_called_once_with(chat_id=10, text="text")
 
+#context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
+
     def test_start(self, mocker: MockerFixture):
         context = mocker.MagicMock()
         update = mocker.MagicMock()
