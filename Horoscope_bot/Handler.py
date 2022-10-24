@@ -1,6 +1,7 @@
+
 from telegram.ext import MessageHandler, Filters, CommandHandler, CallbackContext, Updater
 from telegram import Update, ReplyKeyboardMarkup
-
+import requests
 
 
 updater = Updater(token='5677270788:AAHKSofh8_Tq-dFPg5Cjk3oYAdxO0rXs1ow')
@@ -22,8 +23,17 @@ def start(update: Update, context: CallbackContext):
 start_handler = CommandHandler('start', start)
 dispatcher.add_handler(start_handler)
 
-def kb_message(update: Update, context: CallbackContext):
-    context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
 
-kb_handler = MessageHandler(Filters.text & (~Filters.command), kb_message)
-dispatcher.add_handler(kb_handler)
+def signRequest(update: Update, context: CallbackContext):
+    params = (
+        ('sign', update.message.text[:-2]),
+        ('day', 'today')
+    )
+    response = requests.post('https://aztro.sameerkumar.website/', params=params)
+    jsonResponse = response.json()
+
+
+    context.bot.send_message(chat_id=update.effective_chat.id, text = jsonResponse["description"])
+
+signRequest_handler = MessageHandler(Filters.text & (~Filters.command), signRequest)
+dispatcher.add_handler(signRequest_handler)
