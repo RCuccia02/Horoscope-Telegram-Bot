@@ -3,7 +3,7 @@ import requests
 
 
 from Handler import start, signRequest
-from Horoscope_bot.Handler import signRequest
+from Handler import signRequest
 
 
 class TestHandlers:
@@ -28,7 +28,7 @@ class TestHandlers:
 
         signRequest(update, context)
         params = (
-            ('sign', 'Taurus'),
+            ('sign', message.text),
             ('day', 'today')
         )
         response = requests.post('https://aztro.sameerkumar.website/', params=params)
