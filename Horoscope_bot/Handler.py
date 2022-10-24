@@ -27,5 +27,5 @@ def signRequest(update: Update, context: CallbackContext):
 
     context.bot.send_message(chat_id=update.effective_chat.id, text = jsonResponse["description"])
 
-echo_handler = MessageHandler(Filters.text & (~Filters.command), signRequest)
-dispatcher.add_handler(echo_handler)
+signRequest_handler = MessageHandler(Filters.text & (~Filters.command), signRequest)
+dispatcher.add_handler(signRequest_handler)
