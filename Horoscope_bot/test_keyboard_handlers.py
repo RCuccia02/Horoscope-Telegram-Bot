@@ -2,7 +2,7 @@ from pytest_mock import MockerFixture
 import requests
 
 
-from Handler import start, echo
+from Handler import start, signRequest
 from Horoscope_bot.Handler import signRequest
 
 
