@@ -48,7 +48,7 @@ class TestHandlers:
 
         bot.send_message = send_message
         effective_chat.id = 10
-        message.text = "I'm a bot, please talk to me!"
+        message.text = "Select a sign!"
 
         context.bot = bot
         update.effective_chat = effective_chat
@@ -56,5 +56,5 @@ class TestHandlers:
 
         start(update, context)
 
-        send_message.assert_called_once_with(chat_id=10, text="I'm a bot, please talk to me!")
+        send_message.assert_called_once_with(chat_id=10, text="Select a sign!")
 
