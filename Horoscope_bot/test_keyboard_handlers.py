@@ -1,5 +1,6 @@
 from pytest_mock import MockerFixture
 import requests
+from telegram import ReplyKeyboardMarkup, ReplyMarkup
 
 
 from Handler import start, signRequest
@@ -20,7 +21,7 @@ class TestHandlers:
 
         bot.send_message = send_message
         effective_chat.id = 10
-        message.text = "Taurus"
+        message.text = "Taurus♉️"
 
         context.bot = bot
         update.effective_chat = effective_chat
@@ -28,7 +29,7 @@ class TestHandlers:
 
         signRequest(update, context)
         params = (
-            ('sign', message.text),
+            ('sign', message.text[:-2]),
             ('day', 'today')
         )
         response = requests.post('https://aztro.sameerkumar.website/', params=params)
@@ -45,10 +46,18 @@ class TestHandlers:
         effective_chat = mocker.MagicMock()
         message = mocker.MagicMock()
         send_message = mocker.MagicMock()
+        reply_markup = mocker.MagicMock()
+        keyboard = mocker.MagicMock()
 
+        keyboard = [["Aries♈️", "Taurus♉️", "Gemini♊️"],
+            ["Cancer♋️", "Leo♌️", "Virgo♍️"],
+            ["Libra♎️", "Scorpio♏️", "Sagittarius♐️"],
+            ["Capricorn♑️", "Aquarius♒️", "Pisces♓️"]]
         bot.send_message = send_message
         effective_chat.id = 10
-        message.text = "I'm a bot, please talk to me!"
+        message.text = "Select a sign!"
+        reply_markup = ReplyKeyboardMarkup(keyboard)
+        
 
         context.bot = bot
         update.effective_chat = effective_chat
@@ -56,5 +65,5 @@ class TestHandlers:
 
         start(update, context)
 
-        send_message.assert_called_once_with(chat_id=10, text="I'm a bot, please talk to me!")
+        send_message.assert_called_once_with(chat_id=10, text="Select a sign!", reply_markup=reply_markup)
 
